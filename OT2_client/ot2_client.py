@@ -10,18 +10,7 @@ from pathlib import Path
 from datetime import datetime
 from copy import deepcopy
 import time
-
-# import rclpy
-# from rclpy.node import Node
-# from rclpy.callback_groups import MutuallyExclusiveCallbackGroup, ReentrantCallbackGroup
-# from rclpy.executors import MultiThreadedExecutor, SingleThreadedExecutor
-
-# from wei_services.srv import WeiActions, WeiDescription
-# from std_msgs.msg import String
-
 from ot2_driver.ot2_driver_http import OT2_Config, OT2_Driver
-# import opentrons.simulate
-# from opentrons.simulate import format_runlog
 from urllib.error import HTTPError, URLError
 from urllib3.exceptions import ConnectionError, ConnectTimeoutError
 from urllib3.connection import HTTPException, HTTPConnection
