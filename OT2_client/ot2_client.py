@@ -25,7 +25,7 @@ class OT2Client:
     Inside the function the parameters exist, and calls to other functions and services are made so they can be executed in main.
     """
 
-    def __init__(self, ip = "127.0.0.1", device_name="OT2_alpha"):
+    def __init__(self, ip = "169.254.227.210", device_name="OT2_alpha"):
 
         self.ip = ip
         self.node_name = device_name
@@ -38,8 +38,8 @@ class OT2Client:
         self.past_robot_status = ""
         self.state_refresher_timer = 0
 
-        self.resources_folder_path = 'W:\OT2_ws\ot2_protocols\ot2_temp/' + self.node_name + "/" + "resources/"  
-        self.protocols_folder_path = 'W:\OT2_ws\ot2_protocols\ot2_temp/' + self.node_name + "/" + "protocols/"  
+        self.resources_folder_path = r'C:\\Users\scrc112\Documents\\Ot2_ws\src\\Protocols\\ot2_temp/' + self.node_name + "/" + "resources/"  
+        self.protocols_folder_path = r'C:\\Users\scrc112\Documents\\Ot2_ws\src\\Protocols\\ot2_temp/' + self.node_name + "/" + "protocols/"  
         
         self.check_resources_folder()
         self.check_protocols_folder()
