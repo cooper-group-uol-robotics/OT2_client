@@ -15,6 +15,7 @@ from urllib.error import HTTPError, URLError
 from urllib3.exceptions import ConnectionError, ConnectTimeoutError
 from urllib3.connection import HTTPException, HTTPConnection
 import requests
+import rospy
 
 
 
@@ -62,6 +63,7 @@ class OT2Client:
     def connect_robot(self):
         try:
             self.ot2 = OT2_Driver(OT2_Config(ip = self.ip))
+
 
         except ConnectTimeoutError as connection_err:
             self.state = "OT2 CONNECTION ERROR"
@@ -115,7 +117,7 @@ class OT2Client:
         """The state of the robot, can be ready, completed, busy, error"""
         try:
             self.robot_status = self.ot2.get_robot_status().upper()
-            print("robot status", self.robot_status)
+            # rospy.loginfo("robot status", self.robot_status)
      
         except HTTPError as http_error:
             print("HTTP error code: ", http_error)
@@ -139,7 +141,7 @@ class OT2Client:
                 self.state = "ERROR"
                 msg = 'State: %s' % self.state
                 print(msg)
-                print(self.ot2.get_robot_status())
+                # print(self.ot2.get_robot_status())
                 self.action_flag = "READY"
                 self.ot2.reset_robot_data()
 
@@ -189,15 +191,16 @@ class OT2Client:
         None
         """
 
-        protocol_path = protocol_path
-        resource_config = resource_config
+        # protocol_path = protocol_path
+        # resource_config = resource_config
 
         if self.state == "OT2 CONNECTION ERROR":
             msg = "Can not accept the job! OT2 CONNECTION ERROR"
             return msg
 
         while self.state != "READY":
-            print("Waiting for OT2 to switch READY state...")
+
+            print(f"Waiting for OT2 to switch READY state, now:{self.state}...")
             time.sleep(0.5)
         
         self.action_flag = "BUSY"    
@@ -221,9 +224,9 @@ class OT2Client:
             # Specify the path to your YAML file
 
 
-            protocol_config = f"W:\OT2_ws\src\OT2_client_package\Protocols\{id}"
+            protocol_config = r"C:\\Users\scrc112\Documents\\Ot2_ws\src\\OT2_client\\protocols\\1.py"
 
-            self.get_logger().info("sending python yuan's protocol_1")
+            # self.get_logger().info("sending python yuan's protocol_1")
 
             # resource_config = "/home/uol/ot2_ws/src/ot2_module/ot2_driver/config/resources.json"
 
@@ -368,6 +371,7 @@ class OT2Client:
             protocol_file_path = Path(self.protocol_file_path)
             print(f"{protocol_file_path.resolve()=}")
             self.protocol_id, self.run_id = self.ot2.transfer(self.protocol_file_path)
+            print(f"protocol_id: {self.protocol_id}, Run_id: {self.run_id}")
             print("OT2 " + self.node_name + " protocol transfer successful")
             resp = self.ot2.execute(self.run_id)
             print("OT2 "+ self.node_name +" executed a protocol")
