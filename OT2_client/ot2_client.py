@@ -224,7 +224,7 @@ class OT2Client:
             # Specify the path to your YAML file
 
 
-            protocol_config = r"C:\\Users\scrc112\Documents\\Ot2_ws\src\\OT2_client\\protocols\\1.py"
+            protocol_config = rf"C:\\Users\scrc112\Documents\\Ot2_ws\src\\OT2_client\\protocols\\{id}.py"
 
             # self.get_logger().info("sending python yuan's protocol_1")
 
